@@ -50,8 +50,8 @@ class LoginContainer extends Component {
     this.setState({ error: '' })
     if (this.state.email && this.state.password) {
       this.login();
-   } else {
-     this.setState({ error: 'Please fill in both fields.' })
+    } else {
+      this.setState({ error: 'Please fill in both fields.' })
    }
   }
 

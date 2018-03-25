@@ -2,3 +2,4 @@
 node_modules
 /function/node_modules
 /public/secrets.js
+/public/firebase-messaging-sw.js
