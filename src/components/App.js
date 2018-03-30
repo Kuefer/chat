@@ -31,10 +31,10 @@ class App extends Component {
       .ref('/messages')
       .on('value', snapshot => {
         this.onMessage(snapshot);
+        if (!this.state.messagesLoaded) {
+          this.setState({ messagesLoaded: true });
+        }
       });
-    if (!this.state.messagesLoaded) {
-      this.setState({ messagesLoaded: true });
-    }
   }
 
   onMessage = snapshot => {
