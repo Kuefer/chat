@@ -23,7 +23,6 @@ class App extends Component {
         this.props.history.push('/login')
       }
     });
-    this.listenForMessages();
   }
 
   listenForMessages = () => {
