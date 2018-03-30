@@ -4,33 +4,33 @@ export default class NotificationResource {
   user = null;
 
   constructor(messaging, database) {
-    this.database = database;
     this.messaging = messaging;
-    try {
-      this.messaging
-        .requestPermission()
-        .then(res => {
-          console.log('Permission granted');
-        })
-        .catch(err => {
+    this.database = database;
+          try {
+        this.messaging
+          .requestPermission()
+          .then(res => {
+            console.log('Permission granted');
+          })
+         .catch(err => {
           console.log('no access', err);
-        });
-    } catch(err) {
-      console.log('No notification support.', err);
-    }
+          });
+      } catch(err) {
+        console.log('No notification support.', err);
+      };
     this.setupTokenRefresh();
     this.database.ref('/fcmTokens').on('value', snapshot => {
       this.allTokens = snapshot.val();
       this.tokensLoaded = true;
     });
-  };
+  }
 
   setupTokenRefresh() {
     this.messaging.onTokenRefresh(() => {
       this.saveTokenToServer();
     });
   }
- 
+
   saveTokenToServer() {
     this.messaging.getToken().then(res => {
       if (this.tokensLoaded) {

@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import NotificationResource from '../resources/NotificationResource';
 import LoginContainer from './LoginContainer'
 import ChatContainer from './ChatContainer';
 import UserContainer from './UserContainer';
-import './app.css'
+import './app.css';
 
 class App extends Component {
   state = { user: null, messages: [], messagesLoaded: false }
