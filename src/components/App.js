@@ -16,10 +16,12 @@ class App extends Component {
     );
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        console.log('user');
         this.setState({ user });
         this.listenForMessages();
         this.notifications.changeUser(user);
       } else {
+        console.log('login');
         this.props.history.push('/login')
       }
     });

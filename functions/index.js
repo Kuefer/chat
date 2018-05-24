@@ -31,29 +31,32 @@ exports.sendNotifications = functions.database
             }
           }
           if (tokens.length > 0) {
-            return admin.messaging().sendToDevice(tokens, payload).then(response => {
-              const tokensToRemove = [];
-              response.results.forEach((result, index) => {
-                const error = result.error;
-                if (error) {
-                  console.error(
-                    'Failure sending notification to',
-                    tokens[index],
-                    error
-                  );
-                  if (
-                    error.code === 'messaging/invalid-registration-token' ||
-                    error.code ===
-                      'messaging/registration-token-not-registered'
-                  ) {
-                    tokensToRemove.push(
-                      allTokens.ref.child(tokens[index]).remove()
+            return admin
+              .messaging()
+              .sendToDevice(tokens, payload)
+              .then(response => {
+                const tokensToRemove = [];
+                response.results.forEach((result, index) => {
+                  const error = result.error;
+                  if (error) {
+                    console.error(
+                      'Failure sending notification to',
+                      tokens[index],
+                      error
                     );
+                    if (
+                      error.code === 'messaging/invalid-registration-token' ||
+                      error.code ===
+                        'messaging/registration-token-not-registered'
+                    ) {
+                      tokensToRemove.push(
+                        allTokens.ref.child(tokens[index]).remove()
+                      );
+                    }
                   }
-                }
+                });
+                return Promise.all(tokensToRemove);
               });
-              return Promise.all(tokensToRemove);
-            });
           }
         }
       });

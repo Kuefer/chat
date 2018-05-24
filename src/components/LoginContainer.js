@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 
 class LoginContainer extends Component {
-  state = { email: 'asd@as.com', password: 'asasas', error: '' }
+  state = { email: '', password: '', error: '' }
 
   login() {
     firebase
